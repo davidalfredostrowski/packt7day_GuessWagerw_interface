@@ -1,0 +1,788 @@
+
+    1  ls
+    2  sudo apt-get update
+    3  sudo apt-get install nodejs
+    4  sudo apt install npm
+    5  npm install webpack@3.0.0
+    6  npm install webpack-cli@3.0.8
+    7  npm install ganache-cli
+    8  npm install node-gyp@3.6.2
+    9  npm install truffle@5.1.39
+   10  npm install web3@1.0.0-beta.37
+   11  npm install create-react-app
+   12  curl -sL https://deb.nodesource.com/setup_14.x -o nodesource_setup.sh
+   13  sudo bash nodesource_setup.sh
+   14  sudo apt install nodejs
+   15  ./node_modules/.bin/create-react-app  packt
+   16  cd packt/
+   17  ls
+   18  npm install
+   19  ./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-34-210-86-23.us-west-2.compute.amazonaws.com
+   20  cd ..
+   21  ./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-34-220-213-73.us-west-2.compute.amazonaws.com
+   22  history
+
+
+
+
+ 1  ls
+    2  cd packt/
+    3  ls
+    4  npm start
+    5  npm install
+    6  cd src
+    7  npm start
+    8  npm install definitions
+    9  npm start
+   10  history
+
+
+
+ ./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h ec2-34-220-144-108.us-west-2.compute.amazonaws.com
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-34-220-144-108.us-west-2.compute.amazonaws.com
+
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h ec2-54-244-178-200.us-west-2.compute.amazonaws.com
+
+
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h ec2-34-221-145-247.us-west-2.compute.amazonaws.com
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h ec2-54-184-204-198.us-west-2.compute.amazonaws.com
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h ec2-34-220-248-101.us-west-2.compute.amazonaws.com
+
+
+update the truffle-config.js
+
+do the truffle build
+
+./node_modules/.bin/truffle deploy
+./node_modules/.bin/truffle test
+
+
+./node_modules/.bin/truffle deploy
+
+Compiling your contracts...
+===========================
+> Compiling ./test/TestGaming.sol
+> Artifacts written to /tmp/test--1148-Gs2RMVue63g2
+> Compiled successfully using:
+   - solc: 0.5.16+commit.9c3226ce.Emscripten.clang
+
+
+
+  TestGaming
+    ✓ testPlayerWonGuessHigher (80ms)
+    ✓ testPlayerWonGuessLower (79ms)
+    ✓ testPlayerLostGuessLower (68ms)
+    ✓ testPlayerLostGuessHigher (69ms)
+
+  Contract: Gaming
+    ✓ Should record player losses (74ms)
+    ✓ Should record player wins (59ms)
+
+
+  6 passing (9s)
+
+
+
+
+
+copy over Gaming.json from
+build/contracts
+
+to 'contracts'
+
+so now I can do a node 'script' test of the blockchain app
+
+var config  = require('./Gaming.json');
+config.abi 
+
+
+
+
+don't forget the connect via metamask....
+
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-34-219-201-217.us-west-2.compute.amazonaws.com
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-35-88-62-29.us-west-2.compute.amazonaws.com
+
+
+
+
+
+
+
+
+
+
+account 0xF308be0017DA7c0F1b5EE96EBa622A26f15c43A4
+errors.js:33 Uncaught (in promise) Error: Invalid number of parameters for "fundGame". Got 1 expected 0!
+    at Object.InvalidNumberOfParams (errors.js:33)
+    at Object._createTxObject (index.js:682)
+    at App.loadBlockchainData (App.js:67)
+
+
+
+
+    
+    function getWins( address ) publc view returns ( uint ) { 
+	return wins;
+    }
+
+
+I have to write set/getters to read in the contract variables to access them.
+
+App.js:80 Uncaught (in promise) TypeError: contract.players is not a function
+    at App.loadBlockchainData (App.js:80)
+
+
+
+
+(0) 0xb00abf1873bb35943c9aa89a459664f4b94f53b0f2e2e399b74b2dfbce2887c6
+
+
+
+(0) 0xe144723a40f1f23399cea0e7ce12e3f4eb8dbfaf5640920f2643adf18c1636cb
+
+
+
+troubleshoot - remember to always update the contract id from a newly deployed contract.!
+
+
+
+
+0x46b2a772b0bf05786aa0504ea25123d309654b5314a53f367b9a3605a09afc8d
+
+
+
+==================
+addresss===>>>(0) 0x46b2a772b0bf05786aa0504ea25123d309654b5314a53f367b9a3605a09afc8d
+
+
+0x46b2a772b0bf05786aa0504ea25123d309654b5314a53f367b9a3605a09afc8d
+
+
+(0) 0x3f585982f2c03cce3fdb330f86dd74c8bee6a90321bd2348fdfbc70133b6319d
+
+
+
+Uncaught (in promise) TypeError: contract.methods.winOrLose4 is not a function
+    at App.loadBlockchainData (App.js:80)
+
+I need to copy in the abi into a place that allows it to be read by App.js
+
+https://stackoverflow.com/questions/48547268/smart-contract-method-is-not-a-function-in-web3
+
+
+For anyone else struggling, try to check whether your ABI json actually includes the method you are
+ trying to call. It could have been that you copied the ABI for the wrong contract as Remix would by
+ default list the first contract in the default template rather than your newly created contract.
+
+
+1.) make change to code
+2.) migrate , deploy , test contracts
+3.) copy over new Gaming.json
+4.) obtain the new contract address and place in App.js
+
+
+
+
+
+
+./node_modules/.bin/truffle
+   12* ./node_modules/.bin/truffle
+   13  ./node_modules/.bin/truffle deploy
+   14  ./node_modules/.bin/truffle test
+
+https://stackoverflow.com/questions/7210011/amazon-ec2-ssh-timeout-due-inactivity
+
+
+pwd 
+/howe/ubuntu
+ubuntu@ip-172-31-23-175:~$ vi .ssh/config
+
+ubuntu@ip-172-31-23-175:~$ chmod 664   .ssh/config
+
+
+
+
+
+
+(0) 0x63fb74105994a2cd672de28b70a10f7bbc62434760d2541d2ab31d9c27213a78
+(1) 0xe2f2115bf37bcf32b57199b9fb2d9c5249078b24c4af7ffa1fc58d1fd779c12c
+(2) 0xa9cc745437f5d6d60d928b19ba3698beb02976df4430ed1224ab72045598fb4e
+(3) 0xc6c94d3839dfa0dd0c670a54e21800e0f622a51cc0c74e0a728435d8f63f774b
+(4) 0xc7b49be5f4bac33f5c287974a3791ef5dcf4dd88d0d83695aea86447161d3a5c
+(5) 0x7ee0a017020194d3ca679c2f8c2dc3cf9459e333e5a370ad79b6f33d6ccc8834
+
+
+
+
+0x18030e3f3f1152636a4Be787871abf58c325e154"
+
+
+Uncaught (in promise) Error: Returned values aren't valid, did it run Out of Gas? You might also see this error if you are not using the correct ABI for the contract you are retrieving data from, requesting data from a block number that does not exist, or querying a node which is not fully synced.
+    at ABICoder.decodeParametersWith (index.js:297)
+    at ABICoder.decodeParameters (index.js:284)
+    at Contract._decodeMethodReturn (index.js:481)
+    at Method.outputFormatter (index.js:788)
+    at Method.formatOutput (index.js:147)
+    at sendTxCallback (index.js:530)
+    at index.js:307
+    at XMLHttpRequest.request.onreadystatechange 
+
+
+
+I needed to update the ABI
+
+
+
+
+formatters.js:414 Uncaught (in promise) Error: Provided address 0x7ee0a017020194d3ca679c2f8c2dc3cf9459e333e5a370ad79b6f33d6ccc8834 is invalid, the capitalization checksum test failed, or it's an indirect IBAN address which can't be converted.
+    at Object.inputAddressFormatter (formatters.js:414)
+    at Contract.getOrSetDefaultOptions [as _getOrSetDefaultOptions] (index.js:315)
+    at Object._processExecuteArguments (index.js:712)
+    at Object._executeMethod (index.js:732)
+    at App.loadBlockchainData (App.js:88)
+
+
+
+
+
+(0) 0x59a08873c2824bf4314c0a8171d2ecd4b85cfec0a1f49ad3be5c8391d6405585
+(1) 0x2ac9677eea233e812341c8683fb978a06fac1d13e3728ee3f61fea6aa1ab7b38
+(2) 0x11def594e1440a83534ea928ab963eb256f826b6b442ce713a8071195bd01c9d
+(3) 0x9ae2314379b3826b9cb40c018939403d65c67b461e8a229cd840175827c9f351
+(4) 0x470ce5897977b494b8106041b56e3bbe493a69251216a015958c96aecba030e3
+(5) 0xb8798f294cd726e9b9ecc882219bdb8cd2e93bd52dacb00db50e9a219706db64
+(6) 0x620f26a9913ed013b1f848f00000cbb2c7604cc6c5e8c028315fa03ae55cb06f
+(7) 0x288f53e024a4ac4b6a35e0b44286a89ab553f77c5ede3e5c7cc58c9abcc2d073
+(8) 0x816f26a2d7344d47f474f8e8380a602e8d10ebd2e6cf5925765dac08ee571542
+(9) 0x70ab3397e5f629d271f05052d9dbe7cdec9da8ccd3c210796e0a7ce06b6ab155
+
+
+formatters.js:414 Uncaught (in promise) Error: Provided address 0x7ee0a017020194d3ca679c2f8c2dc3cf9459e333e5a370ad79b6f33d6ccc8834 is invalid, the capitalization checksum test failed, or it's an indirect IBAN address which can't be converted.
+    at Object.inputAddressFormatter (formatters.js:414)
+    at Contract.getOrSetDefaultOptions [as _getOrSetDefaultOptions] (index.js:315)
+    at Object._processExecuteArguments (index.js:712)
+    at Object._executeMethod (index.js:732)
+    at App.loadBlockchainData
+
+
+(0) 0x59a08873c2824bf4314c0a8171d2ecd4b85cfec0a1f49ad3be5c8391d6405585
+(1) 0x2ac9677eea233e812341c8683fb978a06fac1d13e3728ee3f61fea6aa1ab7b38
+(2) 0x11def594e1440a83534ea928ab963eb256f826b6b442ce713a8071195bd01c9d
+(3) 0x9ae2314379b3826b9cb40c018939403d65c67b461e8a229cd840175827c9f351
+(4) 0x470ce5897977b494b8106041b56e3bbe493a69251216a015958c96aecba030e3
+(5) 0xb8798f294cd726e9b9ecc882219bdb8cd2e93bd52dacb00db50e9a219706db64
+(6) 0x620f26a9913ed013b1f848f00000cbb2c7604cc6c5e8c028315fa03ae55cb06f
+(7) 0x288f53e024a4ac4b6a35e0b44286a89ab553f77c5ede3e5c7cc58c9abcc2d073
+(8) 0x816f26a2d7344d47f474f8e8380a602e8d10ebd2e6cf5925765dac08ee571542
+(9) 0x70ab3397e5f629d271f05052d9dbe7cdec9da8ccd3c210796e0a7ce06b6ab155
+
+
+
+(0) 0x59a08873c2824bf4314c0a8171d2ecd4b85cfec0a1f49ad3be5c8391d6405585
+(1) 0x2ac9677eea233e812341c8683fb978a06fac1d13e3728ee3f61fea6aa1ab7b38
+(2) 0x11def594e1440a83534ea928ab963eb256f826b6b442ce713a8071195bd01c9d
+(3) 0x9ae2314379b3826b9cb40c018939403d65c67b461e8a229cd840175827c9f351
+(4) 0x470ce5897977b494b8106041b56e3bbe493a69251216a015958c96aecba030e3
+(5) 0xb8798f294cd726e9b9ecc882219bdb8cd2e93bd52dacb00db50e9a219706db64
+(6) 0x620f26a9913ed013b1f848f00000cbb2c7604cc6c5e8c028315fa03ae55cb06f
+(7) 0x288f53e024a4ac4b6a35e0b44286a89ab553f77c5ede3e5c7cc58c9abcc2d073
+(8) 0x816f26a2d7344d47f474f8e8380a602e8d10ebd2e6cf5925765dac08ee571542
+(9) 0x70ab3397e5f629d271f05052d9dbe7cdec9da8ccd3c210796e0a7ce06b6ab155
+
+
+
+
+(0) 0xd919674ea518687fdec785e8cc2c6c043fe5d01299f92a4b7e5d99b72390a809
+(1) 0xac7f040e9fa32f1c6cd11f403530419facdbdf285ca1242af7dfce37c5a9f229
+(2) 0xaeff2a69e71d1e65e585e651cc8b3ac30d1941e7bae61da06c028537936e7d6b
+(3) 0x35c028e0d2d408b343d5b9f35ecfda94364edbd950111143e1cd9fa3316d97ae
+(4) 0x96228849736bc106905f69dfbf0fb8c47d75fe46a61e8643c7aef126c0b59def
+(5) 0xd6e952aafd53531eb24368c103a67ab896c5da1114704af9711958c1aba404db
+(6) 0xc463b809de9914fb19a8ffb66304243bf91e3edb7831eb27ee47ab549fa62a72
+(7) 0x4b15110e01ef02bb4773d22c74267c952327a75daf5dff789518a2be859eb1a9
+(8) 0xb2c48eeb6463a3420b7d623a1e927a18eeefc2ae04a6c7654f4e87ded94235ea
+(9) 0xcf1db6d3c900e68164f1edda1e76bf3dac051f5422c69645127f70f3ce6df4d8
+
+
+
+
+0x0Afa9B26194b8f0752b9005D28Da8B55fFED69BE 
+
+
+
+(0) 0x1ced712e06341ceb9c23c8869669b83df0bd1c42efafc530b4f9be9204bd0422
+(1) 0x848b7052deb43af1e35c535ddd2b02d5a157ca1725198bb05fb093178b37e166
+(2) 0xf228b6047ce432b3847315ce31eb58d888c8e911505a0023e3868c746555a763
+(3) 0x1e3f7b280525162d6425cd2bcd7cd39b39756edc89f45b1a26bf6c84e4058239
+(4) 0xbb9368498b40c019ec066d9c3a3853f5be87e7d8b34aa96c19002baeab5a5077
+(5) 0x879e3e27b24f8869bd81f73fb88b4bda6336c02725363cc70710c006adeab1ae
+(6) 0x078e60519600f73e66db51748bbd641c3eed8dde4e029cc18bb74ab4cc83b331
+(7) 0x80f1ad3fb3e10563e0c3d73d4c1c363b5f58c9b5b659bb82e741382d3a2e44c7
+(8) 0x6c665ce0b728ccacba5893008979d398b7b0e5ee50f1872dc7f5b61251fedba5
+(9) 0x1eb6c97ee7913c3dd41d43ebbc14ad7aeb7859fd2e0563e9fdfea1475d852330
+
+
+
+
+(0) 0xee5056e5373b4aa113d1f5c18b5e2e3a222ffca2c22d655494c588e1ff102421
+(1) 0xd2826732aa7d69d2dbd9466c3a30d4f570ac4f5a833a07c748d10a5d1a68edc6
+(2) 0xc79f59bf308bfeb32a76ebf85819b595bb95a6d56e3e539628d5ef1ec6aa47dd
+(3) 0x9afd959429f5997e93fe187fd57b64c70877a61be1aaa891569c8f603ab97c5e
+(4) 0x48c5e9dcba8175a367ecf227fccf329e94ec9dfc037ea1d75d0731406869def6
+(5) 0xad3546f5a007eda6ab448fd00bc7e1e2ab97c9f9eab3cb9875097c889dfe2101
+(6) 0x120d9f95a24bc634f33bee33985bccda91490257ba85bd0edf3883c62a7c3100
+(7) 0xbe74086c4c4fcc48138f08e162ebf62822f13dfb6bb2a9d6ea4f06b31ff94acb
+(8) 0xfa11efb59d114e40a6651ea7acae5e61c3052ec5164f4b629a12815abab29486
+(9) 0x0879469d1c37aa64b1c96566844a1bfe46afe36d472522f7ae1a126c6777b268
+
+0xd2826732aa7d69d2dbd9466c3a30d4f570ac4f5a833a07c748d10a5d1a68edc6
+
+
+
+
+
+(0) 0xee5056e5373b4aa113d1f5c18b5e2e3a222ffca2c22d655494c588e1ff102421
+(1) 0xd2826732aa7d69d2dbd9466c3a30d4f570ac4f5a833a07c748d10a5d1a68edc6
+(2) 0xc79f59bf308bfeb32a76ebf85819b595bb95a6d56e3e539628d5ef1ec6aa47dd
+(3) 0x9afd959429f5997e93fe187fd57b64c70877a61be1aaa891569c8f603ab97c5e
+(4) 0x48c5e9dcba8175a367ecf227fccf329e94ec9dfc037ea1d75d0731406869def6
+(5) 0xad3546f5a007eda6ab448fd00bc7e1e2ab97c9f9eab3cb9875097c889dfe2101
+(6) 0x120d9f95a24bc634f33bee33985bccda91490257ba85bd0edf3883c62a7c3100
+(7) 0xbe74086c4c4fcc48138f08e162ebf62822f13dfb6bb2a9d6ea4f06b31ff94acb
+(8) 0xfa11efb59d114e40a6651ea7acae5e61c3052ec5164f4b629a12815abab29486
+(9) 0x0879469d1c37aa64b1c96566844a1bfe46afe36d472522f7ae1a126c6777b268
+
+0xd2826732aa7d69d2dbd9466c3a30d4f570ac4f5a833a07c748d10a5d1a68edc6
+
+
+
+
+
+
+account 0xc558C1A045ed637931cd94Cbd21053fF54b78C10
+App.js:45 account1 0xec926020A1962832d31D00a5E80DE98567C65155
+App.js:83 just before first call..., passing in a '12' as the player number with bet to be higher.
+App.js:93 {transactionHash: '0xdf1af8a3c8ab29f1846be9c0361acd7ba0ee04c45eaf12bbf993b7febcb637f1', transactionIndex: 0, blockHash: '0x3bd3ccc688206e37111dcefb8c73393664f5f4412ceb8aa8a5b4b79db61c30e1', blockNumber: 5, from: '0xec926020a1962832d31d00a5e80de98567c65155', …}
+index.js:540 null Result {0: true, 1: '1'}
+App.js:98 just after the first call to winOrLose
+index.js:540 null '1'
+App.js:106 {transactionHash: '0x318d94db6b2af0eab35c58ff0e88b0f964edafc13b83945761bf9000ca0cecb1', transactionIndex: 0, blockHash: '0x06780a6e648b20424aca6c3a678341bcb9bc180fa531a01e04303c9af00056e7', blockNumber: 6, from: '0xec926020a1962832d31d00a5e80de98567c65155', …}
+index.js:540 null Result {0: false, 1: '2'}
+index.js:540 null '1'
+App.js:113 {transactionHash: '0x8788f03b8bb23cb2bfd2b319eeac86141d37c4a85a3c9dd6289ffe2da50b1caf', transactionIndex: 0, blockHash: '0x1c9ce0fb910075a1fd2b6bc43342454d620d20ca08f3e66b677892910f1def0c', blockNumber: 7, from: '0xec926020a1962832d31d00a5e80de98567c65155', …}
+index.js:540 null Result {0: false, 1: '2'}
+index.js:540 null '1'
+index.js:540 null '1'
+App.js:122 {transactionHash: '0x393fcd25f5ccebad386764edd5506ae7e63cd1d658d81d7cc0c63c211d5e7a14', transactionIndex: 0, blockHash: '0xc80429da895cba8046aaba0792f730a8e0eab684c7ea8338fabb738a7fc3748e', blockNumber: 8, from: '0xec926020a1962832d31d00a5e80de98567c65155', …}
+index.js:540 null Result {0: false, 1: '7'}
+index.js:540 null '1'
+index.js:540 null '1'
+index.js:540 null '1'
+index.js:540 null '3'
+
+
+
+1 win
+3 losses 
+
+
+4 calls
+
+everything looks ok.
+
+
+
+
+
+
+1.) start ganache
+2.) truffle migrate / deploy
+3.) move over Gaming.json
+4.) copy in the contract address to App.js
+5.) pull in the player (address) into metamask
+0xe772b4c7355ffcc4a542a0a4c42af489090f53e47dca6d868cd055391708fcdb
+
+
+
+
+
+(1) 0xe772b4c7355ffcc4a542a0a4c42af489090f53e47dca6d868cd055391708fcdb
+
+
+
+
+(0) 0xab7e4365a7cd9d202443275faf55fead4cd50ee5b62ef09a404733ce22746122
+(1) 0xed404f5fd26e39661bddf6f265a16ae6ea98e5c70fa3b1f9a4ef6064260c7e9c
+(2) 0xdf445038601b7f4be051f6f7bb28ad1951c4c69ad5f09e7835445bc14ac92f2e
+(3) 0xde678a4000ea23a722239c08e5eb540b39e25aaa50aab2e64ed2f2be49e91d03
+(4) 0x2560ee3e5628b380bda2157c56c4e28f0047b2ba38e99d1941550996f94e62a4
+(5) 0x7ca3c124bdc75cf8a0e123306902627282b779f8a6f7ee544d1b5d15ce99074c
+(6) 0x3e4d73b761e49b43d2079ed5e466bd0032e27ec1c5159b5a60e886f633e4f952
+(7) 0xe534f5752ddf0f7569ad8c4d2524203686c3dc3149521304909639a22977617c
+(8) 0xe499bf83463b977e3b6d0fa713cd121ee9a26cf056d78b677c92d2f1eed1b699
+(9) 0x5014fc173ea9a7021a176354351cdead1e25eab8866ce0dc77333a24025aa460
+
+
+0xed404f5fd26e39661bddf6f265a16ae6ea98e5c70fa3b1f9a4ef6064260c7e9c
+
+
+
+(0) 0xab7e4365a7cd9d202443275faf55fead4cd50ee5b62ef09a404733ce22746122
+(1) 0xed404f5fd26e39661bddf6f265a16ae6ea98e5c70fa3b1f9a4ef6064260c7e9c
+(2) 0xdf445038601b7f4be051f6f7bb28ad1951c4c69ad5f09e7835445bc14ac92f2e
+(3) 0xde678a4000ea23a722239c08e5eb540b39e25aaa50aab2e64ed2f2be49e91d03
+(4) 0x2560ee3e5628b380bda2157c56c4e28f0047b2ba38e99d1941550996f94e62a4
+(5) 0x7ca3c124bdc75cf8a0e123306902627282b779f8a6f7ee544d1b5d15ce99074c
+(6) 0x3e4d73b761e49b43d2079ed5e466bd0032e27ec1c5159b5a60e886f633e4f952
+(7) 0xe534f5752ddf0f7569ad8c4d2524203686c3dc3149521304909639a22977617c
+(8) 0xe499bf83463b977e3b6d0fa713cd121ee9a26cf056d78b677c92d2f1eed1b699
+(9) 0x5014fc173ea9a7021a176354351cdead1e25eab8866ce0dc77333a24025aa460
+
+
+
+0xed404f5fd26e39661bddf6f265a16ae6ea98e5c70fa3b1f9a4ef6064260c7e9c
+
+
+0xed404f5fd26e39661bddf6f265a16ae6ea98e5c70fa3b1f9a4ef6064260c7e9c
+
+
+
+
+
+added a single uint wager in the function all 
+
+
+
+Uncaught (in promise) Error: Returned error: VM Exception while processing transaction: revert
+    at Object.ErrorResponse (errors.js:28)
+    at index.js:302
+    at XMLHttpRequest.request.onreadystatechange (index.js:98)
+
+
+
+(0) 0x942659e619cc20d02ef618e92fd120e223bfdb85d570b1947bf7e01de203a424
+(1) 0x3639e6d2561abd3fcdd108ce4f84a8ff356e04bd020fe0802eeed16baa687db8
+(2) 0xa9a889f84c9c75dc86c3496726932c4c7642b5dc4a1b1e5588c3bbd638690247
+(3) 0x3bfc8ef420e83ea58cc553f1fda8b727ad1dffc42747c93ff64092db4f8b5a7d
+(4) 0xb456d0870e1233343dad713d0ef108dfdc346c628db08816e6ea5661a0368415
+(5) 0x2ac4846b269f0d2167e40209a647f0886e17ea95ed9df77d168d5142f045cd19
+(6) 0x8e8e576f516ff31eb218e14f0b4f941230d86333b229e061bd8a3c18d16259a8
+(7) 0xc791251ab3a237d1455fc2fa4214f4a4836973320804577ce720a87b96dd5257
+(8) 0x824133267b7cd17ac6872baaf0a6f9047b9e561179a834a90976751972b5531e
+(9) 0xc477fa2e54f8cb117225df61af3d77f707ee1f2634a7b09dcfec461bd91f8cda
+
+
+ec2-34-214-250-152.us-west-2.compute.amazonaws.com
+
+
+
+
+0xe2aab18245222578467b7694c582c55a64d8b441440a03ad62ab00cd5077646f
+
+0xe2aab18245222578467b7694c582c55a64d8b441440a03ad62ab00cd5077646f
+
+
+
+
+(0) 0xbd8a7fc3078d83e343b84ec813aa4e67165a4bf2bda3b4dafff6e3dbbd7652a3
+(1) 0x078e3f66076f72fae4749d70ffd5f60cf3450440020388a7af9df501302cab79
+(2) 0xf4c5809a634a767696d62b72363b81a06a568d5a188c8e302e8fea940ade8257
+(3) 0x07c02d8af8c9e45b6c40d42bf6699fa74f4b77c11bdb42018b74e51be5f335d6
+(4) 0xce2cf09977e1b37b31a1d2082f890e13285da25410beea06284c4a03fff9b15a
+(5) 0xc6d5e04d8fd500d27454cd8443759cb9cc97f2f0627d0b4061dde779de18d3a7
+(6) 0xf22a734f9fbf0854622cb97f5b6a1ce64ffeb26d44f1b8b27b0dde822fab90a4
+(7) 0xfea0df2e3db115835a6d3becfb0bfdca07f865f85efe72ce330c0ba690894104
+(8) 0x71fd647c1ab8ae53f87b82cd904710a67151fe0da0d6b0540c1051777729ef02
+(9) 0xf26395d2d520d695dccd5dec8765e020d4d87a4daae1200a3dd5dc68f5a770aa
+
+
+
+
+(0) 0x7ee6b71dabd4c5887c8abf6f2a7eeb869c78c0ece96894d02fd03185fcd85453
+(1) 0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+(2) 0x1bbf4f77a7cb7b935af0695ca36d1cf78e0ea978afe1c0f292ad9f2e84f0440e
+(3) 0x0b9aef02c20f0387cac9693231b6000aeebe6a5c56728a61cfd2efaf6502b602
+(4) 0xafd730c94bd8c5219f8f47e93fe9165ab7e2a8dc84cebd2d1c82e21748c553b9
+(5) 0x8b9808bc4366d1b25b7d18829eb2c86153c919a2514df89e00d46cd6d3adac40
+(6) 0x8a8471cc526749f0448055693189caa271ebbc73db5e1b13e816c1e7dcb8ab55
+(7) 0x0f88abcc43f1551ca129acc6bba8f205bdc1ced1d0e6761d9a8baea89ab8a8de
+(8) 0x44055debf8dbc60a5de5b7ce0bb46bbc8ae79a58c592ef443226de243e1e87dd
+(9) 0xd4fcbd487d8bfbfe8b37cdefb8520e37129780447fb1392d26219cf1fda71b55
+
+
+
+0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+
+
+
+
+0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+
+
+
+0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+
+0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+
+
+
+
+
+(0) 0x142e5dc0c229696d0eeaaf62d7c14f2eb63bec18a105b73a3ef16693d34d467a
+(1) 0x2d2ed84e6415f3567036790ea441d3b76256dc8af822c5dacd788e200d69238c
+(2) 0x9caabce771a8dd24b3d6e97957a80b2b50aa38968b29263f71978da72de35aac
+(3) 0x724f17fc0def9692bf13140dc0943da2b0dfdc29468718914089d28d0b7d4b1d
+(4) 0x98c6cf4e830821240a65304d928afaa48a4019bcb5b6a2577c005da70981d375
+(5) 0x91015b16c116e207d48a0a710d5372d17f5d6189e2ce7201171f9cb6c7c093fe
+(6) 0x4e8ff71ecdc2b3ac78f07f7bd489fdeb64be196378f84d6f39c464f883c864e2
+(7) 0xfd0d8ce88c2cdcda153fd199723459ac1b63ab0c1f1d2b4219c91a5b3873d5b3
+(8) 0x56c9964145796f235194974f91dd4c3b67625b9ce06d1dbde5164b4a2029d10d
+(9) 0x3792d81e1dbf4d981590412e6b9a30de229d808ad540abea77fa7373f92db865
+
+
+
+
+
+https://medium.com/daox/three-methods-to-transfer-funds-in-ethereum-by-means-of-solidity-5719944ed6e9
+
+
+0x01229016018cf3b4b0b12e4cf0cdf4dd4d7664e7c64fe1f07633d3de82a1901e
+
+
+./node_modules/.bin/ganache-cli --port 8545  --chainId 5777  -h  ec2-52-12-29-126.us-west-2.compute.amazonaws.com
+
+
+
+
+
+
+(0) 0x12b7c97b77a690c221cbecd60777aea24a6911d29e29fb7cb7f898587686d1c2
+(1) 0x4a549f5e9373aeefc27f0d638f5362cc14f6b53974f234c852ddb1e717fda267
+(2) 0xc925cb3ac33a03e011dd8d92bd7e267155e0ef226dcbe6a27018f5be88721fae
+(3) 0x5e2baefb5afe971d0f4d48c248bd32fda07d9fa4a022ffc0690b681dbd5dc440
+(4) 0x0010fbee075bb6af0aa5560a653937a3b8f2cd4034982bdceb1b4290e35dc8e9
+(5) 0xef1311724cdb557508c857f4b2a0b3a006c051cccc3ae176a930d869f965f05c
+(6) 0xa35c8d0a18922c77503fb05566da988aac22fa217c115d168209aa414f1626b1
+(7) 0x52f70d4c8048e78c983729b76ba77541f1aaca78beb699d87ce77273d4267566
+(8) 0x1e3509a0ffccac44ece106f1583655649ea9a146340b82143ee8932eb2075fe9
+(9) 0x3c949b6a72c81067ac7a49e214ce59a217c2acecfb1a93407df3679bbd963deb
+
+
+0x4a549f5e9373aeefc27f0d638f5362cc14f6b53974f234c852ddb1e717fda267
+0x4a549f5e9373aeefc27f0d638f5362cc14f6b53974f234c852ddb1e717fda267
+
+
+
+
+(0) 0x4d1885c59a024814d76e2212336db1ab4bc62076d875f8a3fce55020c26f1ed8
+(1) 0xf34334d6613c29276f96dff10648808b80792e4a184560acf709287219552cc8
+(2) 0xb9e5ddf29e614547814d77d2596ea3e3e5dda37debfc25ff2299ffc7ba22af7d
+(3) 0xa0308984fd265667655a5493368dbeb16daeedf6a59bfedadcf3d7e16389ddc2
+(4) 0x06856b56fe821efdd7c2e7abd3d33b2120136e13df9aee088dfafe6df54f2f8b
+(5) 0xb9481f0af2908ba3af5f009ea1b206647ff83a8d564643c4fc1b885bfb5aaa49
+(6) 0x3b50db83f23c805f5ad992c8fbb4b68b4ea976ff7929d935de1b3bc28d096ae5
+(7) 0xb937e6b9c3e33729bf2e55fa4b31cb5784a4af3457983abc8e98aeda92de508e
+(8) 0x36182bcfcb7a96c2072d98b2de46733ee9e161629cad6b76d7bdfd9821228667
+(9) 0xb8f8eacb0722ba36a65d85312b9e6d8a89c14d1cb508c8bd7f68fb6dd0a94970
+0xf34334d6613c29276f96dff10648808b80792e4a184560acf709287219552cc8
+
+
+
+0xf34334d6613c29276f96dff10648808b80792e4a184560acf709287219552cc8
+
+
+
+account 0x6C75e82c9b833fCaB5fa20Dd4fFd753Ce9fB69fB
+App.js:45 account1 0xF650660f392ae1c34CFa5b4aeF1403e5F188379C
+App.js:83 just before first call..., passing in a '12' as the player number with bet to be higher.
+App.js:93 {transactionHash: '0xd782a894601be4a6f34aa81329c6df4f3e0ba4b6a5a8cef598cf1f2c693a634e', transactionIndex: 0, blockHash: '0xeda0662202609ed307986c6777df44d0f75abb6dd7b9a2df30dc65600e8099f2', blockNumber: 5, from: '0xf650660f392ae1c34cfa5b4aef1403e5f188379c', …}
+index.js:540 null Result {0: false, 1: '10', 2: '0', 3: '10000000000000000000'}
+App.js:101 just after the first call to winOrLose
+
+
+
+
+
+errors.js:33 Uncaught (in promise) Error: Invalid number of parameters for "fundGame". Got 1 expected 0!
+    at Object.InvalidNumberOfParams (errors.js:33)
+    at Object._createTxObject (index.js:682)
+    at App.loadBlockchainData (App.js:73)
+
+
+
+
+
+
+
+gamingTests.js
+
+
+
+
+  before(async () => {
+    gaming = await Gaming.deployed()
+    const fundGame = await gaming.fundGame({from: owner, value: web3.utils.toWei('10', 'ether')})
+  })
+
+
+
+
+
+
+
+my App.js
+
+		console.log('just before the connect')
+		const web3 = new Web3(new Web3.providers.HttpProvider("http://ec2-52-12-29-126.us-west-2.compute.amazonaws.com:8545"))
+
+
+		this.setState({ web3 : web3 })
+		//var account;
+		//web3.eth.getAccounts().then((f) => {
+ 		//	account = f[0];
+		//})
+		const accounts = await web3.eth.getAccounts()
+		console.log("account", accounts[0])
+		console.log("account1", accounts[1])
+		this.setState({ account: accounts[0] })
+
+
+		const owner = accounts[0]
+		const player1 = accounts[1]
+
+
+		//const abi = JSON.parse('[{"constant":true,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"totalVotesFor","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"validCandidate","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"bytes32"}],"name":"votesReceived","outputs":[{"name":"","type":"uint8"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"candidateList","outputs":[{"name":"","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"candidate","type":"bytes32"}],"name":"voteForCandidate","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[{"name":"candidateNames","type":"bytes32[]"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"}]')
+		var config  = require('./Gaming.json');   // put a copy in /src directory.....
+		// then reference as ....    -> config.abi 
+		const contract = new web3.eth.Contract(config.abi);
+
+
+		this.setState({ data: contract })
+		this.setState({ contract: contract })
+
+
+
+		
+		// deployed via the web3 console interface...
+		// more
+
+		contract.options.address = "0x27A4A99b5Eabd0900ad158cD067df0A406a4ff08";
+		contract.options.address = "0xc662dF9Fdf156608FBc68f6308C0142c984111dC";
+
+		//contract.methods.fundGame()
+
+		contract.methods.fundGame({from: owner, value: web3.utils.toWei('10', 'ether')})	
+
+
+
+
+why do the two above don't work on the (supposed) same contract? 
+
+
+
+contract.methods.fundGame().send({from: owner, value: web3.utils.toWei('10', 'ether')})).then((f) => console.log(f))	
+
+
+
+
+ubuntu@ip-172-31-23-175:~/packt$ vi truffle-config.js
+
+ubuntu@ip-172-31-23-175:~/packt/build/contracts$ rm Gaming.json
+
+
+
+"0x53f7423170E14117e182fe56421A5760ba60cB4E",
+
+
+
+
+
+(0) 0xb9d530e1971477eaaa79b94150e4b0e3fa878d51afe49719c2d50709c7e55dd5
+(1) 0x769b2ef6b54198ba708df333c293a5502aefcc5da44cd9dc57076410b21e790f
+(2) 0xd43c90df7cabd4196cdc6d344769f2279344f0529017e6062e99edb3995b5cb0
+(3) 0x2523fcdfba10de94f437206669505b89da74a497ea71659c8715d103f59ceac4
+(4) 0xb4988df83dc9baf07988ded6fd0552cf7869820f20607c5dc68cd14cc30471d1
+(5) 0x112fbb9a951639d17e17707b799b58a5fabb8efeca13ec3a6c5d35b0d10661ae
+(6) 0x9ce45fb09131e385fef69226ad2c729b7f752ca678f4e6803efb9e6094c62e8b
+(7) 0xfe6dcd1c93c51f4d0b7582eb76fe7e5fe2ea5045b0913bb2131a5c13c6d8bef9
+(8) 0xd803e6384680395a3cac8ea447dbc4cbeb33eef90205a9bb94f3defeb9c5e623
+(9) 0x442ead7cb616c07e899405b8c6c4700bc028cd3b9600505a8cbd2a25a0f5582f
+
+
+
+0x769b2ef6b54198ba708df333c293a5502aefcc5da44cd9dc57076410b21e790f
+
+
+
+
+account 0x5EB9DEb5B033F06620b060760fBC882aC54692F3
+App.js:44 account1 0x4377dBF09703Fee67597A215aB7150e809fbFA3B
+App.js:85 just before first call..., passing in a '12' as the player number with bet to be higher.
+App.js:75 {transactionHash: '0x21ab9553618575fc0d4916553132137cc1f8d3cdb5e10fb6887b392b6d94223f', transactionIndex: 0, blockHash: '0xe3d1877253d52c8551bff6f925d26123c835be0ee5914a9363d582ffcc3e4161', blockNumber: 10, from: '0x5eb9deb5b033f06620b060760fbc882ac54692f3', …}
+App.js:96 {transactionHash: '0xae763487724af309cdf312a9d56e1009cbf75ce6f25eda2d9f6f315b6a112aed', transactionIndex: 0, blockHash: '0x0125dab5ae09532b18d310b27537b41b23934705d9f1793b1e444e66025b0342', blockNumber: 11, from: '0x4377dbf09703fee67597a215ab7150e809fbfa3b', …}
+index.js:540 null Result {0: true, 1: '2', 2: '0', 3: '10000000000000000000'}
+index.js:540 null Result {0: true, 1: '2', 2: '0', 3: '10000000000000000000'}
+App.js:105 just after the first call to winOrLose
+index.js:540 null '2'
+App.js:114 {transactionHash: '0x83ff0677f24cf0dcc7e994f232a4889d17a2d54d07e34e3a2abdf1ea646169a0', transactionIndex: 0, blockHash: '0x57b0dd15e02fa82a417459e384bf672ac1ea7f862fda17ea5f5665ec73f91de5', blockNumber: 12, from: '0x4377dbf09703fee67597a215ab7150e809fbfa3b', …}
+index.js:540 null Result {0: false, 1: '1', 2: '0', 3: '10000000000000000000'}
+index.js:540 null '2'
+App.js:121 {transactionHash: '0xf724d63104b5d6df84285e4e8b88f6d8ecb7e6236cd394e5440cb919f37c80ca', transactionIndex: 0, blockHash: '0xc1692992ff7a0d80370019aa11987bca6cb5640ed4fb071886e50bf77c84a85e', blockNumber: 13, from: '0x4377dbf09703fee67597a215ab7150e809fbfa3b', …}
+index.js:540 null Result {0: false, 1: '2', 2: '0', 3: '10000000000000000000'}
+index.js:540 null '2'
+index.js:540 null '2'
+App.js:130 {transactionHash: '0x49bc9eb41271a39e88d11f9a8ebea26fd550a33d3e407ad1fca415a5770bc3bc', transactionIndex: 0, blockHash: '0xa94ced4c41a756ee30d01a409fb98b183b81265b553d3ca5cd0350a5f226d452', blockNumber: 14, from: '0x4377dbf09703fee67597a215ab7150e809fbfa3b', …}
+index.js:540 null Result {0: false, 1: '9', 2: '0', 3: '10000000000000000000'}
+index.js:540 null '2'
+index.js:540 null '2'
+index.js:540 null '2'
+index.js:540 null '6'
+App.js:159 endingBalance 95992325720000000000
+App.js:160 endingBalanceInEther 95.99232572
+
+
+started with 99 down to 95 (lost four more than I won .... adds up)
+
+
+
+
+
+(0) 0xb82212fb2b0d4a723b93ce7f7f8c30433bf3eb84455a666ae7d3f9f2e431bd6f
+
+
+
+
+(0) 0x60159fe800e04263c1f451572f86197e36a66f14b3fb3e96d69b1cdb769328af
+(1) 0x75242c0fb59fb5fddea83da96ef92ff127810a6c0702c8d798e42a376e28bb18
+(2) 0x17e75b9c1c657bb7b7676e44b6eb2ee38591382ca71d8a505075286e549198ee
+(3) 0x7da33b56513a81c4c8fbcbcd8e17377e8e14e73d86f2a95bd82471f591f0e05d
+(4) 0x93528b25f32216644664145908839dfd080ef7502ebc5eaf6a413be898f5a6ae
+(5) 0x7e71080e86a3b67514f02b2b51ad88d804dfb8b577c2f444b9bd2d98c6db2a73
+(6) 0xf5fb0525270fb9af3524f8f7404576c093b2960878212cd94183e55ba1f6bcf2
+(7) 0x804e32b164844b50da7296ed10109c4b0c7a592992285be220ae40535847093c
+(8) 0x5fec6ee6c9a58c8a651546906511adae7d5369f21e14b6b42e3d9af84c533a4e
+(9) 0x529f1d98adc48ae5352c32556d42b2445c6659324127624560ccfd38857cbd99
+
+
+
+
+0xAd455fb6C404E2C009c6915C8D496F2D75746291
+
+
+
+
